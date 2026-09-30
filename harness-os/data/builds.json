@@ -1,0 +1,41 @@
+[
+  {
+    "id": "b_1",
+    "name": "web-app",
+    "project": "dominic-builds",
+    "projectName": "Dominic Builds",
+    "status": "success",
+    "command": "npm run build",
+    "cwd": "/opt/data/projects/dominic-builds",
+    "started_at": "2026-09-28T10:00:00Z",
+    "finished_at": "2026-09-28T10:05:00Z",
+    "logs": "Build completed successfully.",
+    "log": "Build completed successfully."
+  },
+  {
+    "id": "b_2",
+    "name": "api-server",
+    "project": "dominic-builds",
+    "projectName": "Dominic Builds",
+    "status": "building",
+    "command": "npm run build",
+    "cwd": "/opt/data/projects/dominic-builds",
+    "started_at": "2026-09-28T11:30:00Z",
+    "finished_at": null,
+    "logs": "",
+    "log": "Building..."
+  },
+  {
+    "id": "b_3",
+    "name": "dashboard",
+    "project": "dark-history",
+    "projectName": "Dark History",
+    "status": "queued",
+    "command": "ls -la /opt/data/projects/dark-history/",
+    "cwd": "/opt/data/projects/dark-history",
+    "started_at": null,
+    "finished_at": null,
+    "logs": "",
+    "log": ""
+  }
+]

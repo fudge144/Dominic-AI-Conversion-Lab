@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JARVIS // Hermes OS — Dominic AI Command Nexus</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #030712;
+            --surface: #0b1329;
+            --surface-glass: rgba(11, 19, 41, 0.85);
+            --cyan-glow: #00f0ff;
+            --cyan-dim: rgba(0, 240, 255, 0.15);
+            --gold-accent: #f59e0b;
+            --gold-dim: rgba(245, 158, 11, 0.15);
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --success: #10b981;
+            --border-glow: 0 0 15px rgba(0, 240, 255, 0.25);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: 'JetBrains Mono', monospace;
+            min-height: 100vh;
+            padding: 1rem;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(0, 240, 255, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(245, 158, 11, 0.04) 0%, transparent 40%),
+                linear-gradient(rgba(3, 7, 18, 0.95), rgba(3, 7, 18, 0.95));
+        }
+        header {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 1rem;
+            border-bottom: 1px solid rgba(0, 240, 255, 0.3);
+            background: var(--surface-glass);
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+        }
+        @media(min-width: 600px) {
+            header { flex-direction: row; justify-content: space-between; align-items: center; }
+        }
+        .logo-area { display: flex; align-items: center; gap: 12px; }
+        .arc-reactor {
+            width: 32px; height: 32px;
+            border: 2px solid var(--cyan-glow);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 10px var(--cyan-glow);
+            animation: pulse-glow 3s infinite alternate;
+        }
+        .arc-inner { width: 12px; height: 12px; background: var(--cyan-glow); border-radius: 50%; box-shadow: 0 0 6px var(--cyan-glow); }
+        @keyframes pulse-glow { 0% { box-shadow: 0 0 5px var(--cyan-glow); } 100% { box-shadow: 0 0 18px var(--cyan-glow); } }
+        h1 { font-family: 'Orbitron', sans-serif; font-size: 1.1rem; font-weight: 900; color: var(--cyan-glow); letter-spacing: 1px; }
+        .subtitle { font-size: 0.65rem; color: var(--text-muted); letter-spacing: 1px; }
+        .status-badge {
+            background: var(--cyan-dim); border: 1px solid var(--cyan-glow);
+            padding: 6px 12px; border-radius: 4px; font-size: 0.75rem; color: var(--cyan-glow);
+            display: flex; align-items: center; gap: 6px;
+        }
+        .status-dot { width: 7px; height: 7px; background: var(--cyan-glow); border-radius: 50%; animation: blink 1.5s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+        .grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+        @media(min-width: 900px) { .grid { grid-template-columns: repeat(12, 1fr); } }
+
+        .card {
+            background: var(--surface-glass);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            border-radius: 8px; padding: 1.2rem;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            position: relative; overflow: hidden;
+        }
+        .card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--cyan-glow), transparent);
+        }
+        .col-span-3 { grid-column: span 3; }
+        .col-span-4 { grid-column: span 4; }
+        .col-span-8 { grid-column: span 8; }
+        .col-span-12 { grid-column: span 12; }
+        @media(max-width: 900px) {
+            .col-span-3, .col-span-4, .col-span-8, .col-span-12 { grid-column: span 1; }
+        }
+
+        .metric-value { font-family: 'Orbitron', sans-serif; font-size: 1.6rem; font-weight: 700; color: var(--cyan-glow); margin-top: 0.4rem; }
+        .metric-value.gold { color: var(--gold-accent); }
+        .metric-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+
+        h2 { font-family: 'Orbitron', sans-serif; font-size: 0.95rem; margin-bottom: 0.8rem; color: var(--text-main); display: flex; align-items: center; gap: 8px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 0.4rem; }
+        
+        .btn {
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(0, 240, 255, 0.05));
+            border: 1px solid var(--cyan-glow); color: var(--cyan-glow);
+            padding: 10px 16px; font-family: 'Orbitron', sans-serif; font-size: 0.75rem; font-weight: 600;
+            border-radius: 4px; cursor: pointer; text-transform: uppercase; width: 100%;
+            display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 0.6rem;
+            transition: all 0.2s;
+        }
+        .btn:active { transform: scale(0.98); }
+        .btn-gold { background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(245, 158, 11, 0.05)); border-color: var(--gold-accent); color: var(--gold-accent); }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 0.4rem; font-size: 0.8rem; }
+        th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.06); }
+        th { font-family: 'Orbitron', sans-serif; font-size: 0.65rem; color: var(--text-muted); background: rgba(0,240,255,0.03); }
+        
+        .badge-active { background: rgba(16, 185, 129, 0.15); color: var(--success); border: 1px solid var(--success); padding: 2px 6px; border-radius: 3px; font-size: 0.65rem; }
+
+        .terminal-box {
+            background: #010409; border: 1px solid rgba(0, 240, 255, 0.3); border-radius: 6px;
+            padding: 0.8rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
+            height: 200px; overflow-y: auto; color: #38bdf8;
+        }
+        .terminal-line { margin-bottom: 4px; line-height: 1.3; }
+        .form-group { margin-bottom: 0.8rem; }
+        label { display: block; font-size: 0.7rem; color: var(--text-muted); margin-bottom: 0.3rem; text-transform: uppercase; }
+        input, select { width: 100%; background: #020617; border: 1px solid rgba(0, 240, 255, 0.3); color: var(--text-main); padding: 8px; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-area">
+            <div class="arc-reactor"><div class="arc-inner"></div></div>
+            <div>
+                <h1>JARVIS // HERMES OS</h1>
+                <div class="subtitle">DOMINIC AI COMMAND NEXUS (MOBILE EDITION)</div>
+            </div>
+        </div>
+        <div class="status-badge"><div class="status-dot"></div><span>MOBILE LINK ACTIVE</span></div>
+    </header>
+
+    <div class="grid">
+        <div class="card col-span-3">
+            <div class="metric-label">Neural Load</div>
+            <div class="metric-value" id="core-load">14.2%</div>
+        </div>
+        <div class="card col-span-3">
+            <div class="metric-label">Stripe Today</div>
+            <div class="metric-value gold" id="rev-today">£1,500.00</div>
+        </div>
+        <div class="card col-span-3">
+            <div class="metric-label">Active Clients</div>
+            <div class="metric-value" id="active-clients">14</div>
+        </div>
+        <div class="card col-span-3">
+            <div class="metric-label">SEO Efficiency</div>
+            <div class="metric-value gold" id="swarm-eff">99.1%</div>
+        </div>
+
+        <div class="card col-span-8">
+            <h2>⚡ Autonomous Agent & SEO Swarm Grid</h2>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr><th>Agent</th><th>Role</th><th>Status</th><th>Done</th></tr>
+                    </thead>
+                    <tbody id="agent-tbody">
+                        <tr><td><strong>SEO Swarm Alpha</strong></td><td>Keyword Hunter</td><td><span class="badge-active">ACTIVE</span></td><td>342</td></tr>
+                        <tr><td><strong>SEO Content Writer</strong></td><td>Programmatic Briefs</td><td><span class="badge-active">ACTIVE</span></td><td>128</td></tr>
+                        <tr><td><strong>Lead Hunter</strong></td><td>B2B Outreach</td><td><span class="badge-active">ACTIVE</span></td><td>89</td></tr>
+                        <tr><td><strong>Stripe Revenue Bot</strong></td><td>Checkout Tracker</td><td><span class="badge-active">ACTIVE</span></td><td>512</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <button class="btn" onclick="runSwarm()">🚀 Deploy SEO Swarm Action</button>
+            <button class="btn btn-gold" onclick="window.open('https://buy.stripe.com/14A00i5Wlf51e44anJa3u00', '_blank')">💳 Open Stripe £500 Checkout</button>
+        </div>
+
+        <div class="card col-span-4">
+            <h2>⚙️ Spawn Agent</h2>
+            <div class="form-group">
+                <label>Codename</label>
+                <input type="text" id="agent-name" placeholder="RankMaster-X">
+            </div>
+            <div class="form-group">
+                <label>Directive</label>
+                <select id="agent-role">
+                    <option>SEO Topical Authority Swarm</option>
+                    <option>B2B Conversion Pitcher (£500)</option>
+                    <option>Backlink & Citation Hunter</option>
+                </select>
+            </div>
+            <button class="btn btn-gold" onclick="spawnAgent()">Initialize Agent</button>
+        </div>
+
+        <div class="card col-span-12">
+            <h2>💻 Live Telemetry Stream</h2>
+            <div class="terminal-box" id="terminal">
+                <div class="terminal-line">[12:00:01] JARVIS Mobile Nexus initialized. Secure sync established.</div>
+                <div class="terminal-line">[12:05:12] SEO Swarm deployed 12 programmatic authority pages.</div>
+                <div class="terminal-line">[12:10:45] Stripe webhook verified: £500 received for Conversion Package.</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function runSwarm() {
+            const term = document.getElementById('terminal');
+            const timeStr = new Date().toLocaleTimeString();
+            term.innerHTML += `<div class="terminal-line" style="color:var(--gold-accent)">[${timeStr}] Manual SEO Swarm deployment initiated from mobile device.</div>`;
+            term.scrollTop = term.scrollHeight;
+            alert('SEO Swarm deployed successfully! Ranking agents crawling target keywords.');
+        }
+
+        function spawnAgent() {
+            const name = document.getElementById('agent-name').value || 'CustomAgent';
+            const role = document.getElementById('agent-role').value;
+            const term = document.getElementById('terminal');
+            const timeStr = new Date().toLocaleTimeString();
+            term.innerHTML += `<div class="terminal-line" style="color:var(--success)">[${timeStr}] Spawned new agent [${name}] -> ${role}.</div>`;
+            term.scrollTop = term.scrollHeight;
+            alert(`Agent ${name} spawned successfully!`);
+            document.getElementById('agent-name').value = '';
+        }
+    </script>
+</body>
+</html>

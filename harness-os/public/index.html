@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hermes Harness OS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'os-bg': '#0a0a0a',
+                        'os-surface': '#0d0d0d',
+                        'os-border': '#222222',
+                        'os-text': '#e5e5e5',
+                        'os-muted': '#888888',
+                        'os-accent': '#3b82f6',
+                        'os-success': '#22c55e',
+                        'os-warning': '#f59e0b',
+                        'os-danger': '#ef4444',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0a0a; color: #e5e5e5; overflow: hidden; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0d0d0d; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #444; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+        .animate-spin { animation: spin 1s linear infinite; }
+        .pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
+        .nav-link.active { color: #e5e5e5; background: rgba(59,130,246,0.1); border-right: 2px solid #3b82f6; }
+        .nav-link { transition: all 0.15s ease; }
+        .card-hover:hover { border-color: #333; background: #111; }
+        .btn-primary { background: #3b82f6; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 500; transition: all 0.15s; }
+        .btn-primary:hover { background: #2563eb; }
+        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+        .btn-secondary { background: #1a1a1a; color: #e5e5e5; border: 1px solid #333; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; transition: all 0.15s; }
+        .btn-secondary:hover { background: #222; }
+        .btn-danger { background: #ef4444; color: white; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 11px; }
+        .badge-active { background: rgba(34,197,94,0.15); color: #22c55e; padding: 2px 8px; border-radius: 9999px; font-size: 11px; font-weight: 600; }
+        .badge-warning { background: rgba(245,158,11,0.15); color: #f59e0b; padding: 2px 8px; border-radius: 9999px; font-size: 11px; font-weight: 600; }
+        .badge-danger { background: rgba(239,68,68,0.15); color: #ef4444; padding: 2px 8px; border-radius: 9999px; font-size: 11px; font-weight: 600; }
+        .badge-info { background: rgba(59,130,246,0.15); color: #3b82f6; padding: 2px 8px; border-radius: 9999px; font-size: 11px; font-weight: 600; }
+        .sidebar-item { display: flex; align-items: center; gap: 12px; padding: 10px 16px; color: #888; text-decoration: none; font-size: 13px; border-right: 2px solid transparent; transition: all 0.15s; cursor: pointer; }
+        .sidebar-item:hover { color: #e5e5e5; background: rgba(59,130,246,0.05); }
+        .sidebar-item.active { color: #e5e5e5; background: rgba(59,130,246,0.1); border-right: 2px solid #3b82f6; }
+        .os-input { background: #1a1a1a; border: 1px solid #333; color: #e5e5e5; padding: 8px 12px; border-radius: 6px; font-size: 13px; width: 100%; outline: none; }
+        .os-input:focus { border-color: #3b82f6; }
+        .os-input::placeholder { color: #555; }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+    <script type="module" src="src/app.js"></script>
+</body>
+</html>

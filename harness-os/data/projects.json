@@ -1,0 +1,35 @@
+[
+  {
+    "id": "dominic-builds",
+    "name": "Dominic Builds",
+    "description": "Build portfolio projects",
+    "folders": [
+      "/opt/data/projects/dominic-builds"
+    ],
+    "active": true,
+    "buildCommand": "echo \"Building dominic-builds...\" && npm run build 2>/dev/null || echo \"No npm build found\"",
+    "cwd": "/opt/data/projects/dominic-builds"
+  },
+  {
+    "id": "dark-history",
+    "name": "Dark History",
+    "description": "YouTube channel infrastructure",
+    "folders": [
+      "/opt/data/projects/dark-history"
+    ],
+    "active": true,
+    "buildCommand": "echo \"Building Dark History...\" && ls -la /opt/data/projects/dark-history/",
+    "cwd": "/opt/data/projects/dark-history"
+  },
+  {
+    "id": "trading-system",
+    "name": "Trading System",
+    "description": "Wyckoff & BTC trading bots",
+    "folders": [
+      "/opt/data/projects/trading-system"
+    ],
+    "active": false,
+    "buildCommand": "echo \"Building trading-system...\" && ls -la /opt/data/projects/trading-system/",
+    "cwd": "/opt/data/projects/trading-system"
+  }
+]

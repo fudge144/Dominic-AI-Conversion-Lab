@@ -1,0 +1,15 @@
+{
+  "system_name": "JARVIS // Hermes Operator System OS",
+  "operator": "Dominic",
+  "agency": "Dominic AI Conversion Lab",
+  "stripe_payment_link": "https://buy.stripe.com/14A00i5Wlf51e44anJa3u00",
+  "server_port": 8095,
+  "dashboard_script": "/opt/data/jarvis_os.py",
+  "active_swarms": [
+    "SEO Topical Authority Swarm",
+    "B2B Conversion Pitcher (£500 Offer)",
+    "Backlink & Citation Hunter",
+    "Wyckoff Crypto/Commodity Bot"
+  ],
+  "saved_credentials_status": "Secured and persistent in Hermes storage at /opt/data"
+}
